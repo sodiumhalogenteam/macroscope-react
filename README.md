@@ -4,7 +4,7 @@
 
 1. Download this repo
 2. Run `yarn start`
-3. The server should be at https://localhost:3000
+3. The server should be at http://localhost:3000
 4. Edit and save files to see the localhost refresh
 
 ## Structure
