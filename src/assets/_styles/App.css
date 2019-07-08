@@ -1,0 +1,371 @@
+/*
+                      _
+ _| _ _. _  _  __ |_.(_. _   _ _  _ . _  _ _ _. _  _   |_
+(_|(-_)|(_)| )    |_|| |(_  (-| )(_)|| )(-(-| || )(_)  |_)\/
+        _/                       _/               _/      /
+ ____            _ _                 _   _       _
+/ ___|  ___   __| (_)_   _ _ __ ___ | | | | __ _| | ___   __ _  ___ _ __
+\___ \ / _ \ / _` | | | | | '_ ` _ \| |_| |/ _` | |/ _ \ / _` |/ _ \ '_ \
+ ___) | (_) | (_| | | |_| | | | | | |  _  | (_| | | (_) | (_| |  __/ | | |
+|____/ \___/ \__,_|_|\__,_|_| |_| |_|_| |_|\__,_|_|\___/ \__, |\___|_| |_|.com
+                                                         |___/
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+body {
+  background: #fff url("../_images/bg_chrome.gif") left top repeat-x;
+  font-family: arial, helvetica, sans-serif;
+}
+
+body {
+  background: #fff url("../_images/bg_chrome_grid.gif") left top repeat-x;
+}
+
+#top-nav {
+  background: url("../_images/macroscope.gif") left top no-repeat;
+  font-size: 12px;
+  color: #000;
+  height: 20px;
+  padding: 6px 0 0 160px;
+}
+
+.grid #top-nav {
+  padding: 6px 0 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.title {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-family: arial, helvetica, sans-serif;
+  color: #000;
+}
+
+.title h1 {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.paginate {
+  display: block;
+  margin-top: -3px;
+  text-align: center;
+}
+
+.paginate li {
+  list-style-type: none;
+  float: left;
+  margin-right: 4px;
+}
+
+.paginate li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  background-color: #4f4f4f;
+  border: 1px solid #fff;
+  padding: 4px 6px;
+  font: bold 10px/10px arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.paginate li a {
+  display: block;
+  width: 10px;
+  height: 10px;
+  text-align: center;
+}
+
+.paginate li a:hover,
+.paginate li.active a {
+  background: #2cabbd;
+}
+
+.paginate li.up a {
+  width: 20px;
+  background: #333;
+}
+
+.paginate li.up a:hover {
+  background: #2cabbd;
+}
+
+#main-holder {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#main-holder #img_holder {
+  min-height: 450px;
+  height: auto !important;
+  height: 450px;
+}
+
+#main-holder #img_holder a {
+  width: 100%;
+}
+
+#main-holder #img_holder a:hover .b_next {
+  display: block;
+  cursor: pointer;
+}
+
+#main-holder a img:hover {
+  background: #fff url("../_images/bg_chrome_grid.gif") left top repeat-x;
+}
+
+#main-holder h3 {
+  font-size: 12px;
+  font-weight: normal;
+  font-style: italic;
+  color: #333;
+}
+
+.grid .center {
+  width: 545px;
+  height: 400px;
+  background: url("../_images/macroscope_bg_top.png") left top no-repeat;
+  margin: 50px auto 0;
+  padding-top: 110px;
+}
+
+.grid .center p {
+  color: #cacaca;
+  background: #000;
+  width: 434px;
+  display: block;
+  text-align: left;
+  padding: 10px 55px 0;
+}
+
+ul.folder_names {
+  list-style-type: none;
+  text-align: left;
+  background: #000;
+  width: 434px;
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 20px 55px 50px;
+  min-height: 280px;
+  height: auto !important;
+  height: 280px;
+}
+
+ul.folder_names p {
+  width: initial !important;
+  color: red !important;
+}
+
+ul.folder_names p span {
+  color: white;
+}
+
+ul.folder_names a {
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #2cabbd;
+  outline: none;
+}
+
+ul.folder_names a:hover {
+  background: url("../_images/bg_arrow.png") left bottom no-repeat;
+  padding-left: 15px;
+  margin-left: -15px;
+  color: #fff;
+}
+
+ul.folder_names li span {
+  color: rgb(100, 100, 100);
+  margin: 0;
+  display: block;
+  margin-bottom: 8px;
+}
+
+ul.folder_names li span {
+  padding-left: 10px;
+}
+
+/*     for columns     */
+ul.folder_names {
+  overflow: auto;
+  margin: 0;
+}
+
+ul.folder_names li {
+  display: inline-block;
+  width: 45%;
+  vertical-align: top;
+  /* In case multi-word categories form two lines */
+  margin-bottom: 5px;
+}
+
+ul.folder_names li:before {
+  padding: 5px;
+  margin-right: 5px;
+  /* you can tweak the gap */
+  color: orange;
+  display: inline-block;
+}
+
+/*     END for columns     */
+
+ul.link_names {
+  list-style-type: none;
+  text-align: left;
+  background: #000;
+  width: 434px;
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 20px 55px 50px;
+  min-height: 280px;
+  height: auto !important;
+  height: 280px;
+}
+
+ul.link_names p {
+  width: initial !important;
+  color: red !important;
+}
+
+ul.link_names p span {
+  color: white;
+}
+
+ul.link_names a {
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #2cabbd;
+  outline: none;
+}
+
+ul.link_names a:hover {
+  background: url("../_images/bg_arrow.png") left top no-repeat;
+  padding-left: 15px;
+  margin-left: -15px;
+}
+
+ul.link_names li span {
+  color: rgb(100, 100, 100);
+  margin: 0;
+  display: block;
+  margin-bottom: 8px;
+}
+
+ul.link_names li span {
+  padding-left: 10px;
+}
+
+ul.link_names li {
+  display: inline-block;
+  width: 51%;
+  vertical-align: top;
+  /* In case multi-word categories form two lines */
+  margin-bottom: 10px;
+}
+
+.hidden_folders {
+  min-height: 0px !important;
+}
+
+.slidingDiv {
+  margin-top: -88px;
+}
+
+.show_hide {
+  display: none;
+  color: #fff;
+  text-decoration: none;
+  margin-top: -50px;
+}
+
+.paginate li:hover > .thumb {
+  display: block;
+  position: absolute;
+  padding-top: 12px;
+  width: 196px;
+}
+
+.paginate li > .thumb {
+  display: none;
+}
+
+#logout {
+  padding: 9px 16px;
+  font-size: 16px;
+  background: deepskyblue;
+  width: 53px;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  text-align: center;
+}
+
+a.logout {
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+/**** persona icons ****/
+ul.personas,
+.title h1 {
+  float: left;
+  margin-left: 12px;
+}
+
+.personas li {
+  list-style: none;
+  float: left;
+  display: block;
+  border-radius: 0;
+  height: 26px;
+  margin: -5px 0 0 0;
+}
+
+.personas img.thumb {
+  display: none;
+}
+
+.personas li:hover {
+  background-color: #717171;
+}
+
+.personas li:hover img.thumb {
+  display: block;
+  position: absolute;
+  padding-top: 0px;
+  width: 550px;
+  margin: 2px 0 0 -523px;
+}
+
+.personas img {
+  width: 17px;
+  margin: 4px 5px 0px 5px;
+}
+
+.white {
+  color: #cacaca;
+}
+
+.view-wrap {
+  width: 545px;
+  height: 400px;
+  margin: 50px auto 0;
+  padding-top: 110px;
+  text-align: center;
+}
