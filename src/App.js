@@ -1,16 +1,16 @@
 import React from "react";
 import "./assets/_styles/App.css";
-import Header from "./Header";
 import Home from "./Home";
+import { Route, Switch } from "react-router-dom";
+import View from "./View";
 
 function App() {
   return (
-    <div className="grid">
-      <div id="top-nav">
-        <Header />
-        <Home />
-      </div>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/home" component={Home} />
+      <Route path="/view" component={View} />
+    </Switch>
   );
 }
 
