@@ -4,12 +4,7 @@ import { Link } from "react-router-dom";
 
 class Header extends Component {
   render() {
-    const personas = [
-      "../../client_view/ata/personas/1-persona.png",
-      "../../client_view/ata/personas/2-persona.png",
-      "../../client_view/ata/personas/3-persona.png"
-    ];
-    const { currFolder, fileList, active, cycle } = this.props;
+    const { currFolder, fileList, active, cycle, personas } = this.props;
     return (
       <>
         <div className="title">
@@ -24,7 +19,7 @@ class Header extends Component {
                       src={require("./assets/_images/persona-icon.png")}
                       alt=""
                     />
-                    <img src={persona} className="thumb" alt="" />
+                    <img src={require(`${persona}`)} className="thumb" alt="" />
                   </li>
                 ))
               : null}
@@ -41,10 +36,7 @@ class Header extends Component {
                   <Link to={`${file}`} onClick={() => cycle(index)}>
                     {index + 1}
                   </Link>
-                  {/* <img
-                src="/client_view/ata/_project_map/s_lg_worksheet-site-canvas-001.jpg"
-                class="thumb"
-              /> */}
+                  <img src={require(`${file}`)} className="thumb" alt="" />
                 </li>
               ))}
             </ul>
@@ -59,12 +51,18 @@ Header.protoTypes = {
   fileList: PropTypes.arrayOf(PropTypes.string),
   currFolder: PropTypes.string.isRequired,
   active: PropTypes.number,
-  cycle: PropTypes.func.isRequired
+  cycle: PropTypes.func.isRequired,
+  personas: PropTypes.arrayOf(PropTypes.string)
 };
 
 Header.defaultProps = {
   fileList: [],
-  active: 0
+  active: 0,
+  personas: [
+    "./test_imgs/1-persona.png",
+    "./test_imgs/2-persona.png",
+    "./test_imgs/3-persona.png"
+  ]
 };
 
 export default Header;

@@ -7,9 +7,9 @@ import View from "./View";
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/home" component={Home} />
-      <Route path="/view" component={View} />
+      <Route exact path="/:project" component={Home} />
+      <Route path="/:project/:folder" component={View} />
+      <Route path="/:project/:folder/:file" component={View} />
     </Switch>
   );
 }

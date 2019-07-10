@@ -363,9 +363,6 @@ ul.personas,
 }
 
 .view-wrap {
-  width: 545px;
-  height: 400px;
-  margin: 50px auto 0;
-  padding-top: 110px;
+  margin: auto;
   text-align: center;
 }

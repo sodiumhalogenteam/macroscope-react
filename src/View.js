@@ -20,13 +20,13 @@ class View extends Component {
 
   render() {
     const { active } = this.state;
-    const { fileList } = this.props;
+    const { fileList, currFolder } = this.props;
     return (
       <>
         <div id="top-nav">
           <Header
             fileList={fileList}
-            currFolder="inFolder"
+            currFolder={currFolder}
             active={active}
             cycle={this.cycle}
           />
@@ -36,7 +36,7 @@ class View extends Component {
             to={`${fileList[(active + 1) % fileList.length]}`}
             onClick={() => this.cycle()}
           >
-            inner
+            <img src={require(`${fileList[active]}`)} alt="" />
           </Link>
         </div>
       </>
@@ -45,11 +45,17 @@ class View extends Component {
 }
 
 View.propTypes = {
-  fileList: PropTypes.arrayOf(PropTypes.string)
+  fileList: PropTypes.arrayOf(PropTypes.string),
+  currFolder: PropTypes.string
 };
 
 View.defaultProps = {
-  fileList: ["1-file", "2-file", "3-file"]
+  fileList: [
+    "./test_imgs/1-ata-company-portal-sketch.png",
+    "./test_imgs/2-ata-training-sktch.png",
+    "./test_imgs/3-ata-knowledge-base-sketch.png"
+  ],
+  currFolder: "inFolder"
 };
 
 export default View;
