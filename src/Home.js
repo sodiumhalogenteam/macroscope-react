@@ -44,11 +44,10 @@ class Home extends Component {
 
   render() {
     const { folders } = this.state;
-    console.log("folders", folders);
     return (
       <div className="grid">
         <div id="top-nav">
-          <Header currFolder="ata" />
+          <Header currFolder="ata" project={this.props.match.params.project} />
           <div className="center">
             <p>
               As we are working on your project, we will post files here for you

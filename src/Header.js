@@ -1,10 +1,45 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import AWS from "aws-sdk";
+
+var s3 = new AWS.S3({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET,
+  region: process.env.REACT_APP_AWS_REGION
+});
 
 class Header extends Component {
+  state = {
+    personaList: []
+  };
+
+  async componentDidMount() {
+    const that = this;
+    s3.listObjectsV2(
+      {
+        Bucket: "macroscope-sh",
+        Prefix: `${that.props.project}/personas/`
+      },
+      function(err, data) {
+        const len = data.Contents.length;
+        let tempArr = [];
+        for (var i = 1; i < len; i++) {
+          tempArr.push(
+            s3.getSignedUrl("getObject", {
+              Bucket: "macroscope-sh",
+              Key: `${data.Contents[i].Key}`
+            })
+          );
+        }
+        that.setState({ personaList: tempArr });
+      }
+    );
+  }
+
   render() {
-    const { currFolder, fileList, active, cycle, personas } = this.props;
+    const { currFolder, fileList, active, cycle } = this.props;
+    const { personaList } = this.state;
     return (
       <>
         <div className="title">
@@ -12,14 +47,14 @@ class Header extends Component {
             <strong>Folder:</strong> {currFolder}
           </h1>
           <ul className="personas">
-            {personas.length
-              ? personas.map(persona => (
+            {personaList.length
+              ? personaList.map(persona => (
                   <li key={persona}>
                     <img
                       src={require("./assets/_images/persona-icon.png")}
                       alt=""
                     />
-                    <img src={require(`${persona}`)} className="thumb" alt="" />
+                    <img src={`${persona}`} className="thumb" alt="" />
                   </li>
                 ))
               : null}
@@ -55,17 +90,12 @@ Header.protoTypes = {
   currFolder: PropTypes.string.isRequired,
   active: PropTypes.number,
   cycle: PropTypes.func.isRequired,
-  personas: PropTypes.arrayOf(PropTypes.string)
+  project: PropTypes.string.isRequired
 };
 
 Header.defaultProps = {
   fileList: [],
-  active: 0,
-  personas: [
-    "./test_imgs/1-persona.png",
-    "./test_imgs/2-persona.png",
-    "./test_imgs/3-persona.png"
-  ]
+  active: 0
 };
 
 export default Header;

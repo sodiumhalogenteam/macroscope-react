@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Header from "./Header";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import AWS from "aws-sdk";
 
@@ -61,7 +60,6 @@ class View extends Component {
             break;
           }
         }
-        console.log(fileIndex);
         this.setState({ active: fileIndex });
       }
     }
@@ -78,7 +76,6 @@ class View extends Component {
 
   render() {
     const { active, files } = this.state;
-    console.log("files", files);
     return (
       <>
         <div id="top-nav">
@@ -87,6 +84,7 @@ class View extends Component {
             currFolder={this.props.match.params.folder}
             active={active}
             cycle={this.cycle}
+            project={this.props.match.params.project}
           />
         </div>
         <div className="view-wrap">
