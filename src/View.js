@@ -2,60 +2,106 @@ import React, { Component } from "react";
 import Header from "./Header";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import AWS from "aws-sdk";
+
+var s3 = new AWS.S3({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET,
+  region: process.env.REACT_APP_AWS_REGION
+});
 
 class View extends Component {
   state = {
-    active: 0
+    active: 0,
+    files: []
   };
+
+  async componentDidMount() {
+    const that = this;
+    s3.listObjectsV2(
+      {
+        Bucket: "macroscope-sh",
+        Prefix: `${that.props.match.params.project}/${
+          that.props.match.params.folder
+        }/`
+      },
+      function(err, data) {
+        const len = data.Contents.length;
+        let tempArr = [];
+        for (var i = 1; i < len; i++) {
+          tempArr.push({
+            key: data.Contents[i].Key.replace(
+              `${that.props.match.params.project}/${
+                that.props.match.params.folder
+              }/`,
+              ""
+            ),
+            url: s3.getSignedUrl("getObject", {
+              Bucket: "macroscope-sh",
+              Key: `${data.Contents[i].Key}`
+            })
+          });
+        }
+        that.setState({ files: tempArr });
+      }
+    );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if files state changes
+    if (prevState.files.length !== this.state.files.length) {
+      const urlFile = this.props.match.params.file;
+      if (urlFile) {
+        const { files } = this.state;
+        const len = files.length;
+        let fileIndex = 0;
+        for (var i = 0; i < len; i++) {
+          if (files[i].key === urlFile) {
+            fileIndex = i;
+            break;
+          }
+        }
+        console.log(fileIndex);
+        this.setState({ active: fileIndex });
+      }
+    }
+  }
 
   cycle = (index = null) => {
     if (index !== null) {
       this.setState({ active: index });
     } else {
-      const { fileList } = this.props;
-      const { active } = this.state;
-      this.setState({ active: (active + 1) % fileList.length });
+      const { active, files } = this.state;
+      this.setState({ active: (active + 1) % files.length });
     }
   };
 
   render() {
-    const { active } = this.state;
-    const { fileList, currFolder } = this.props;
+    const { active, files } = this.state;
+    console.log("files", files);
     return (
       <>
         <div id="top-nav">
           <Header
-            fileList={fileList}
-            currFolder={currFolder}
+            fileList={files}
+            currFolder={this.props.match.params.folder}
             active={active}
             cycle={this.cycle}
           />
         </div>
         <div className="view-wrap">
-          <Link
-            to={`${fileList[(active + 1) % fileList.length]}`}
-            onClick={() => this.cycle()}
-          >
-            <img src={require(`${fileList[active]}`)} alt="" />
-          </Link>
+          {files[(active + 1) % files.length] ? (
+            <Link
+              to={`${files[(active + 1) % files.length].key}`}
+              onClick={() => this.cycle()}
+            >
+              <img src={`${files[active].url}`} alt="" />
+            </Link>
+          ) : null}
         </div>
       </>
     );
   }
 }
-
-View.propTypes = {
-  fileList: PropTypes.arrayOf(PropTypes.string),
-  currFolder: PropTypes.string
-};
-
-View.defaultProps = {
-  fileList: [
-    "./test_imgs/1-ata-company-portal-sketch.png",
-    "./test_imgs/2-ata-training-sktch.png",
-    "./test_imgs/3-ata-knowledge-base-sketch.png"
-  ],
-  currFolder: "inFolder"
-};
 
 export default View;

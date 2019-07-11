@@ -4,86 +4,47 @@ import Header from "./Header";
 import AWS from "aws-sdk";
 
 var s3 = new AWS.S3({
-  accessKeyId: "AKIAY7MIWP6VW6IZNAHG",
-  secretAccessKey: "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",
-  region: "us-east-1"
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET,
+  region: process.env.REACT_APP_AWS_REGION
 });
 
-var params = {
-  Bucket: "macroscope-sh",
-  Key: "project_map"
-};
-
-var url = s3.getSignedUrl("getObject", params);
-console.log(url);
-
-// var allKeys = [];
-// async function listAllKeys(cb) {
-//   await s3.listObjectsV2({ Bucket: "macroscope-sh" }, function(err, data) {
-//     cb(data.Contents);
-//   });
-// }
-
-// listAllKeys(function(data) {
-//   console.log(data);
-//   allKeys = allKeys.concat(data);
-// });
-// console.log(allKeys);
-
 class Home extends Component {
-  state = { keys: [] };
+  state = { folders: [] };
 
   async componentDidMount() {
     const that = this;
     s3.listObjectsV2(
       {
         Bucket: "macroscope-sh",
-        Prefix: `${that.props.match.params.project}/`,
-        Delimiter: ".png"
+        Prefix: `${that.props.match.params.project}/`
       },
       function(err, data) {
         const len = data.Contents.length;
         let tempArr = [];
         for (var i = 1; i < len; i++) {
-          console.log(data.Contents[i].Key);
-          if (data.Contents[i].Size === 0)
-            tempArr.push(
-              data.Contents[i].Key.replace(
+          if (data.Contents[i].Size === 0) {
+            const sdate = JSON.stringify(data.Contents[i].LastModified).replace(
+              '"',
+              ""
+            );
+            tempArr.push({
+              key: data.Contents[i].Key.replace(
                 `${that.props.match.params.project}/`,
                 ""
-              ).replace("/", "")
-            );
+              ).replace("/", ""),
+              date: sdate.substring(0, sdate.indexOf("T"))
+            });
+          }
         }
-        that.setState({ keys: tempArr });
+        that.setState({ folders: tempArr });
       }
     );
   }
 
   render() {
-    console.log(this.state.keys);
-    const folders = [
-      {
-        folderName: "project map",
-        folderPath: "project_map",
-        date: "April 03, 2019"
-      },
-      { folderName: "Temp", folderPath: "temp", date: "April 03, 2019" },
-      {
-        folderName: "company-portal-sketches",
-        folderPath: "company_portal_sketches",
-        date: "April 03, 2019"
-      },
-      {
-        folderName: "document links",
-        folderPath: "document_links",
-        date: "April 03, 2019"
-      },
-      {
-        folderName: "location-cities",
-        folderPath: "location-cities",
-        date: "April 03, 2019"
-      }
-    ];
+    const { folders } = this.state;
+    console.log("folders", folders);
     return (
       <div className="grid">
         <div id="top-nav">
@@ -98,10 +59,14 @@ class Home extends Component {
             <ul className="folder_names">
               {folders.length ? (
                 folders.map(folder => (
-                  <div key={folder.folderName}>
+                  <div key={folder.key}>
                     <li>
-                      <Link to={`/view/${folder.folderPath}/`}>
-                        {folder.folderName}
+                      <Link
+                        to={`/${this.props.match.params.project}/${
+                          folder.key
+                        }/`}
+                      >
+                        {folder.key.replace(/-|_/g, " ")}
                       </Link>
                     </li>
                     <li>

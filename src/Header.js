@@ -29,14 +29,17 @@ class Header extends Component {
           <div className="center">
             <ul className="paginate">
               <li className="up">
-                <Link to="/">Up</Link>
+                <Link to="../">Up</Link>
               </li>
               {fileList.map((file, index) => (
-                <li className={index === active ? "active" : null} key={file}>
-                  <Link to={`${file}`} onClick={() => cycle(index)}>
+                <li
+                  className={index === active ? "active" : null}
+                  key={file.key}
+                >
+                  <Link to={`${file.key}`} onClick={() => cycle(index)}>
                     {index + 1}
                   </Link>
-                  <img src={require(`${file}`)} className="thumb" alt="" />
+                  <img src={`${file.url}`} className="thumb" alt="" />
                 </li>
               ))}
             </ul>

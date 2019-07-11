@@ -8,8 +8,8 @@ function App() {
   return (
     <Switch>
       <Route exact path="/:project" component={Home} />
-      <Route path="/:project/:folder" component={View} />
       <Route path="/:project/:folder/:file" component={View} />
+      <Route path="/:project/:folder" component={View} />
     </Switch>
   );
 }
