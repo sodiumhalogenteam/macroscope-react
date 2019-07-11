@@ -369,6 +369,10 @@ ul.personas,
   text-align: center;
 }
 
+.view-wrap img {
+  max-width: 100%;
+}
+
 .sort-btn {
   color: #2cabbd;
   background: none;

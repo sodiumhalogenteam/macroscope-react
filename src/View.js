@@ -89,12 +89,18 @@ class View extends Component {
         </div>
         <div className="view-wrap">
           {files[(active + 1) % files.length] ? (
-            <Link
-              to={`${files[(active + 1) % files.length].key}`}
-              onClick={() => this.cycle()}
-            >
-              <img src={`${files[active].url}`} alt="" />
-            </Link>
+            !files[active].key.includes("mp4") ? (
+              <Link
+                to={`${files[(active + 1) % files.length].key}`}
+                onClick={() => this.cycle()}
+              >
+                <img src={`${files[active].url}`} alt="" />
+              </Link>
+            ) : files[active].key.includes("mp4") ? (
+              <video controls>
+                <source src={`${files[active].url}`} type="video/mp4" />
+              </video>
+            ) : null
           ) : null}
         </div>
       </>
