@@ -285,10 +285,12 @@ ul.link_names li {
 }
 
 .show_hide {
-  display: none;
-  color: #fff;
+  /* display: none; */
+  color: transparent;
+  background: transparent;
   text-decoration: none;
   margin-top: -50px;
+  cursor: pointer;
 }
 
 .paginate li:hover > .thumb {
@@ -365,4 +367,26 @@ ul.personas,
 .view-wrap {
   margin: auto;
   text-align: center;
+}
+
+.sort-btn {
+  color: #2cabbd;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  font-size: 12px;
+}
+
+.sort-btn:hover {
+  color: #fff;
+}
+
+.list-title {
+  color: #2cabbd;
+  background: none;
+  text-decoration: none;
+  outline: none;
+  border: none;
 }
