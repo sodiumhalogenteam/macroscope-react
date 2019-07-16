@@ -1,20 +1,4 @@
 /*                  /index.html   200
-/c/*                http://client.sodiumhalogen.com/:splat
+/c/*                https://client.sodiumhalogen.com/:splat
 /strategyworkshop   http://lab.sodiumhalogen.com/strategyworkshop
 /client_files/*     http://lab.sodiumhalogen.com/client_files/:splat
-
-# email signature images + some other things
-/_images/william-email-sig-head.jpg   https://sh-drop.s3.us-east-1.amazonaws.com/wd/william-email-sig-head.jpg
-
-# meeting scheduling
-/wm             https://calendly.com/wm/30min/
-/adam           https://calendly.com/adamcurl/30min/
-/brantley       https://calendly.com/brantleyenglish/meet/
-/zach           https://calendly.com/zachboatwright/30min
-/zachchat       https://appear.in/zachboatwrightchat
-/chance         https://calendly.com/chance/30min/
-/chance-chat    https://meet.google.com/oeq-rewx-rgm?authuser=1
-/chancechat     https://meet.google.com/oeq-rewx-rgm?authuser=1
-/mtwchance      https://meet.google.com/oeq-rewx-rgm?authuser=1
-/chat           https://plus.google.com/hangouts/_/event/cpgo2l8dk8jqnkpdkc6ddkbr85s
-/derrick        https://calendly.com/derricksmithco/meet
