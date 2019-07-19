@@ -1,4 +1,4 @@
 /c/*                https://client.sodiumhalogen.com/:splat
 /strategyworkshop   http://lab.sodiumhalogen.com/strategyworkshop
-/client_files/*     http://lab.sodiumhalogen.com/client_files/:splat
+/client_files/*     https://sh-client-files.s3.amazonaws.com/:splat
 /*                  /index.html   200
