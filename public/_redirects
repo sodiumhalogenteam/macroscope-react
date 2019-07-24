@@ -1,6 +1,9 @@
 /c/*                https://client.sodiumhalogen.com/:splat
 /strategyworkshop   http://lab.sodiumhalogen.com/strategyworkshop
 /client_files/*     https://sh-client-files.s3.amazonaws.com/:splat
+/sh-client-files/*  https://sh-client-files.s3.amazonaws.com/:splat
+
+
 /wm             https://calendly.com/wm/30min/
 /adam           https://calendly.com/adamcurl/30min/
 /brantley       https://calendly.com/brantleyenglish/meet/
