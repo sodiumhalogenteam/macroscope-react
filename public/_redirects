@@ -3,6 +3,8 @@
 /client_files/*     https://sh-client-files.s3.amazonaws.com/:splat
 /sh-client-files/*  https://sh-client-files.s3.amazonaws.com/:splat
 
+/landing-page-adg   http://lab.sodiumhalogen.com/landing-page-adg
+/landing-page-mp    http://lab.sodiumhalogen.com/landing-page-mp
 
 /wm             https://calendly.com/wm/30min/
 /adam           https://calendly.com/adamcurl/30min/
