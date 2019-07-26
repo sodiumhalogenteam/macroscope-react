@@ -394,3 +394,7 @@ ul.personas,
   outline: none;
   border: none;
 }
+
+.video_size {
+  max-width: 900px;
+}
