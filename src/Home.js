@@ -99,8 +99,6 @@ class Home extends Component {
 
   render() {
     const { folders, hiddenFolders, showHiddenFolders } = this.state;
-    console.log(folders);
-    console.log(hiddenFolders);
     return (
       <div className="grid">
         <div id="top-nav">

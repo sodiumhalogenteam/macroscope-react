@@ -11,6 +11,7 @@ var s3 = new AWS.S3({
 
 class View extends Component {
   state = {
+    expanded: false,
     active: 0,
     files: []
   };
@@ -74,8 +75,12 @@ class View extends Component {
     }
   };
 
+  toggleWidth = () => {
+    this.setState({ expanded: !this.state.expanded });
+  };
+
   render() {
-    const { active, files } = this.state;
+    const { expanded, active, files } = this.state;
     return (
       <>
         <div id="top-nav">
@@ -85,6 +90,9 @@ class View extends Component {
             active={active}
             cycle={this.cycle}
             project={this.props.match.params.project}
+            toggleWidth={this.toggleWidth}
+            page="view"
+            expanded={expanded}
           />
         </div>
         <div className="view-wrap">
@@ -94,7 +102,11 @@ class View extends Component {
                 to={`${files[(active + 1) % files.length].key}`}
                 onClick={() => this.cycle()}
               >
-                <img src={`${files[active].url}`} alt="" />
+                <img
+                  className={!expanded ? "view-img" : null}
+                  src={`${files[active].url}`}
+                  alt=""
+                />
               </Link>
             ) : files[active].key.includes("mp4") ? (
               <video controls class="video_size">

@@ -38,11 +38,25 @@ class Header extends Component {
   }
 
   render() {
-    const { currFolder, fileList, active, cycle } = this.props;
+    const {
+      currFolder,
+      fileList,
+      active,
+      cycle,
+      toggleWidth,
+      page,
+      expanded
+    } = this.props;
     const { personaList } = this.state;
     return (
       <>
         <div className="title">
+          {page === "view" ? (
+            <button
+              className={!expanded ? "expand" : "compress"}
+              onClick={toggleWidth}
+            />
+          ) : null}
           <h1>
             <strong>Folder:</strong> {currFolder}
           </h1>
@@ -90,12 +104,18 @@ Header.protoTypes = {
   currFolder: PropTypes.string.isRequired,
   active: PropTypes.number,
   cycle: PropTypes.func.isRequired,
-  project: PropTypes.string.isRequired
+  project: PropTypes.string.isRequired,
+  toggleWidth: PropTypes.func,
+  page: PropTypes.string,
+  expanded: PropTypes.bool
 };
 
 Header.defaultProps = {
+  expanded: null,
+  active: 0,
+  page: "",
   fileList: [],
-  active: 0
+  toggleWidth: () => null
 };
 
 export default Header;
