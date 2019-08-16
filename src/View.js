@@ -109,9 +109,12 @@ class View extends Component {
                 />
               </Link>
             ) : files[active].key.includes("mp4") ? (
-              <video controls class="video_size">
-                <source src={`${files[active].url}`} type="video/mp4" />
-              </video>
+              <video
+                controls
+                className="video_size"
+                src={`${files[active].url}`}
+                type="video/mp4"
+              />
             ) : null
           ) : null}
         </div>
