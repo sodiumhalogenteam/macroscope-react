@@ -31,5 +31,6 @@
 
 #tlm email signature generator
 /clients/tlm/signature/     http://client.sodiumhalogen.com/tlm/signature/
+/app/tlm/signature/         http://client.sodiumhalogen.com/tlm/signature/
 
 /*                  /index.html   200
