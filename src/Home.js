@@ -14,11 +14,21 @@ class Home extends Component {
     folders: [],
     hiddenFolders: [],
     showHiddenFolders: false,
+    projectDataState: {},
     asc: false
   };
 
+  getProjectData() {
+    fetch(
+      `https://macroscope-sh.s3.us-east-1.amazonaws.com/${this.props.match.params.project}/project.json`
+    )
+      .then(response => response.json())
+      .then(data => this.setState({ projectDataState: data }));
+  }
+
   async componentDidMount() {
     const that = this;
+
     s3.listObjectsV2(
       {
         Bucket: "macroscope-sh",
@@ -26,9 +36,14 @@ class Home extends Component {
       },
       function(err, data) {
         const len = data.Contents.length;
+
         let tempArr = [];
         let hiddenTempArr = [];
         for (var i = 1; i < len; i++) {
+          const hasProjectJson = RegExp("project.json", "g").test(
+            data.Contents[i].Key
+          );
+          if (hasProjectJson) that.getProjectData();
           if (
             data.Contents[i].Size === 0 &&
             !data.Contents[i].Key.includes("hide")
@@ -99,6 +114,8 @@ class Home extends Component {
 
   render() {
     const { folders, hiddenFolders, showHiddenFolders } = this.state;
+    console.log(this.state.projectDataState);
+
     return (
       <div className="grid">
         <div id="top-nav">
@@ -130,9 +147,7 @@ class Home extends Component {
                   <div key={folder.key}>
                     <li>
                       <Link
-                        to={`/${this.props.match.params.project}/${
-                          folder.key
-                        }/`}
+                        to={`/${this.props.match.params.project}/${folder.key}/`}
                       >
                         {folder.key.replace(/-|_/g, " ")}
                       </Link>
@@ -158,9 +173,7 @@ class Home extends Component {
                       <div key={folder.key}>
                         <li>
                           <Link
-                            to={`/${this.props.match.params.project}/${
-                              folder.key
-                            }/`}
+                            to={`/${this.props.match.params.project}/${folder.key}/`}
                           >
                             {folder.key.replace(/-|_/g, " ")}
                           </Link>
