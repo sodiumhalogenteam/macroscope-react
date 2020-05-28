@@ -6,14 +6,14 @@ import AWS from "aws-sdk";
 var s3 = new AWS.S3({
   accessKeyId: process.env.REACT_APP_AWS_ACCESS,
   secretAccessKey: process.env.REACT_APP_AWS_SECRET,
-  region: process.env.REACT_APP_AWS_REGION
+  region: process.env.REACT_APP_AWS_REGION,
 });
 
 class View extends Component {
   state = {
     expanded: false,
     active: 0,
-    files: []
+    files: [],
   };
 
   async componentDidMount() {
@@ -21,25 +21,21 @@ class View extends Component {
     s3.listObjectsV2(
       {
         Bucket: "macroscope-sh",
-        Prefix: `${that.props.match.params.project}/${
-          that.props.match.params.folder
-        }/`
+        Prefix: `${that.props.match.params.project}/${that.props.match.params.folder}/`,
       },
-      function(err, data) {
+      function (err, data) {
         const len = data.Contents.length;
         let tempArr = [];
         for (var i = 1; i < len; i++) {
           tempArr.push({
             key: data.Contents[i].Key.replace(
-              `${that.props.match.params.project}/${
-                that.props.match.params.folder
-              }/`,
+              `${that.props.match.params.project}/${that.props.match.params.folder}/`,
               ""
             ),
             url: s3.getSignedUrl("getObject", {
               Bucket: "macroscope-sh",
-              Key: `${data.Contents[i].Key}`
-            })
+              Key: `${data.Contents[i].Key}`,
+            }),
           });
         }
         that.setState({ files: tempArr });
@@ -48,8 +44,12 @@ class View extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps, prevState);
     // if files state changes
-    if (prevState.files.length !== this.state.files.length) {
+    if (
+      prevState.files.length !== this.state.files.length ||
+      prevProps.match.url !== this.props.match.url
+    ) {
       const urlFile = this.props.match.params.file;
       if (urlFile) {
         const { files } = this.state;
