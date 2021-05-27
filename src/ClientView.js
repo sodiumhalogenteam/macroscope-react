@@ -3,25 +3,29 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import AWS from "aws-sdk";
 import { awslistObjects } from "./data/awsListObject";
-
+import moment from 'moment';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 // var s3 = new AWS.S3({
 //   accessKeyId: process.env.REACT_APP_AWS_ACCESS,
 //   secretAccessKey: process.env.REACT_APP_AWS_SECRET,
 //   region: process.env.REACT_APP_AWS_REGION,
 // });
 
+  
+  
+
 class Home extends Component {
   state = {
     folders: [],
     asc: false,
   };
-
+  
   async componentDidMount() {
     const that = this;
-
+    
     const data = [];
     await awslistObjects("macroscope-sh", data);
-    console.log({ data });
+    
 
     const len = data.length;
     let tempArr = [];
@@ -32,7 +36,7 @@ class Home extends Component {
           '"',
           ""
         );
-
+        
         const isRootFolder = data[i].Key.split("/").length < 3;
         if (isRootFolder) {
           tempArr.push({
@@ -42,11 +46,13 @@ class Home extends Component {
         }
       }
       console.log(tempArr.length);
+      
     }
 
     that.setState({ folders: tempArr });
-  }
+}
 
+  
   sortByDate() {
     const { asc, folders } = this.state;
     const tempArr = [...folders];
@@ -78,10 +84,13 @@ class Home extends Component {
   render() {
     const { folders, hiddenFolders, showHiddenFolders } = this.state;
     return (
+
       <div className="grid">
         <div id="top-nav">
+         
           <Header currFolder="clients" project="clients" />
           <div className="center">
+          
             <p>
               As we are working on your project, we will post files here for you
               to view.
