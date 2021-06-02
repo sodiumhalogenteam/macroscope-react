@@ -5,11 +5,7 @@ import AWS from "aws-sdk";
 import { awslistObjects } from "./data/awsListObject";
 import moment from 'moment';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-// var s3 = new AWS.S3({
-//   accessKeyId: process.env.REACT_APP_AWS_ACCESS,
-//   secretAccessKey: process.env.REACT_APP_AWS_SECRET,
-//   region: process.env.REACT_APP_AWS_REGION,
-// });
+
 
   
   
