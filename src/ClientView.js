@@ -86,7 +86,7 @@ class Home extends Component {
          
           <Header currFolder="clients" project="clients" />
           <div className="center">
-          
+  
             <p>
               As we are working on your project, we will post files here for you
               to view.
