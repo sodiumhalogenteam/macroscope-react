@@ -1,38 +1,34 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
-import AWS from "aws-sdk";
 import { awslistObjects } from "./data/awsListObject";
-import moment from 'moment';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { getCookie } from "./utils/cookies";
+import { Authenticate } from "./Authenticate";
 
+function Home() {
+  const [folders, setFolders] = useState([]);
+  const [asc, setAsc] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  
-  
+  useEffect(() => {
+    const isLoggedIn = getCookie("auth");
 
-class Home extends Component {
-  state = {
-    folders: [],
-    asc: false,
-  };
-  
-  async componentDidMount() {
-    const that = this;
-    
+    if (isLoggedIn) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  useEffect(async () => {
     const data = [];
     await awslistObjects("macroscope-sh", data);
-    
 
     const len = data.length;
     let tempArr = [];
 
     for (var i = 1; i < len; i++) {
       if (data[i].Size === 0) {
-        const sdate = JSON.stringify(data[i].LastModified).replace(
-          '"',
-          ""
-        );
-        
+        const sdate = JSON.stringify(data[i].LastModified).replace('"', "");
+
         const isRootFolder = data[i].Key.split("/").length < 3;
         if (isRootFolder) {
           tempArr.push({
@@ -42,14 +38,12 @@ class Home extends Component {
         }
       }
       console.log(tempArr.length);
-      
     }
 
-    that.setState({ folders: tempArr });
-}
+    setFolders(tempArr);
+  }, []);
 
-  
-  sortByDate() {
+  function sortByDate() {
     const { asc, folders } = this.state;
     const tempArr = [...folders];
 
@@ -73,90 +67,56 @@ class Home extends Component {
       });
     }
 
-    this.setState({ asc: !asc });
-    this.setState({ folders: tempArr });
+    setAsc(!asc);
+    setFolders(tempArr);
   }
 
-  render() {
-    const { folders, hiddenFolders, showHiddenFolders } = this.state;
-    return (
+  if (!isAuthenticated)
+    return <Authenticate setIsAuthenticated={setIsAuthenticated} />;
 
-      <div className="grid">
-        <div id="top-nav">
-         
-          <Header currFolder="clients" project="clients" />
-          <div className="center">
-  
-            <p>
-              As we are working on your project, we will post files here for you
-              to view.
-              <br />
-              Choose a folder from below.
-            </p>
-            <ul className="folder_names">
-              <li className="list-title">FOLDER NAME</li>
-              <li>
-                <span>
-                  <button
-                    className="sort-btn"
-                    onClick={() => this.sortByDate()}
-                  >
-                    LAST UPDATED
-                  </button>
-                </span>
-              </li>
-              {folders.length ? (
-                folders.map((folder) => (
-                  <div key={folder.key}>
-                    <li>
-                      <Link
-                        to={`/${folder.key}/`}
-                      >
-                        {folder.key.replace(/-|_/g, " ")}
-                      </Link>
-                    </li>
-                    <li>
-                      <span>{folder.date}</span>
-                    </li>
-                  </div>
-                ))
-              ) : (
-                <span className="white">
-                  Looks like there's nothing here...yet!
-                </span>
-              )}
-            </ul>
+  return (
+    <div className="grid">
+      <div id="top-nav">
+        <Header currFolder="clients" project="clients" />
+        <div className="center">
+          <p>
+            As we are working on your project, we will post files here for you
+            to view.
             <br />
-
-            <div className="slidingDiv">
-              {showHiddenFolders ? (
-                <ul className="folder_names hidden_folders">
-                  {hiddenFolders.length ? (
-                    hiddenFolders.map((folder) => (
-                      <div key={folder.key}>
-                        <li>
-                          <Link to={`/${this.props.match.params.project}/`}>
-                            {folder.key.replace(/-|_/g, " ")}
-                          </Link>
-                        </li>
-                        <li>
-                          <span>{folder.date}</span>
-                        </li>
-                      </div>
-                    ))
-                  ) : (
-                    <span className="white">
-                      Looks like there's nothing here...yet!
-                    </span>
-                  )}
-                </ul>
-              ) : null}
-            </div>
-          </div>
+            Choose a folder from below.
+          </p>
+          <ul className="folder_names">
+            <li className="list-title">FOLDER NAME</li>
+            <li>
+              <span>
+                <button className="sort-btn" onClick={() => this.sortByDate()}>
+                  LAST UPDATED
+                </button>
+              </span>
+            </li>
+            {folders.length ? (
+              folders.map((folder) => (
+                <div key={folder.key}>
+                  <li>
+                    <Link to={`/${folder.key}/`}>
+                      {folder.key.replace(/-|_/g, " ")}
+                    </Link>
+                  </li>
+                  <li>
+                    <span>{folder.date}</span>
+                  </li>
+                </div>
+              ))
+            ) : (
+              <span className="white">
+                Looks like there's nothing here...yet!
+              </span>
+            )}
+          </ul>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Home;
