@@ -417,3 +417,31 @@ ul.personas,
   padding: 8px;
   outline: none;
 }
+.formPage{
+  color: #fff;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  top: 40px;
+  margin: auto;
+  position: relative;
+  
+  width: 500px;
+  padding: 40px;
+
+
+}
+
+label{
+  color:#2cabbd;
+  padding: 5px;
+
+}
+input{
+  padding: 5px;
+}
+.submit-button{
+  padding: 5px;
+}
