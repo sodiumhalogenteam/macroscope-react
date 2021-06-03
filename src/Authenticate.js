@@ -10,7 +10,6 @@ export function Authenticate({ setIsAuthenticated }) {
   }
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(password);
     if (password === "bonaire") {
       setCookie("auth", "qwewe7878768???//", 13);
       setIsAuthenticated(true);
