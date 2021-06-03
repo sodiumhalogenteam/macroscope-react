@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { setCookie } from "./utils/cookies";
 
 export function Authenticate({ setIsAuthenticated }) {
-  // handlePassword
-  // setCookie('auth', 'qwewer', 13)
   const [password, setPassword] = useState("");
   function handlePassword(event) {
     setPassword(event.target.value);
