@@ -424,7 +424,10 @@ ul.personas,
   flex-direction: column;
   align-items: center;
   align-content: center;
-  margin: 30%;
+  top: 40px;
+  margin: auto;
+  position: relative;
+  
   width: 500px;
   padding: 40px;
 
@@ -433,4 +436,12 @@ ul.personas,
 
 label{
   color:#2cabbd;
+  padding: 5px;
+
+}
+input{
+  padding: 5px;
+}
+.submit-button{
+  padding: 5px;
 }

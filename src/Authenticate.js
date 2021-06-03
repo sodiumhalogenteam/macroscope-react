@@ -5,10 +5,10 @@ export function Authenticate({ setIsAuthenticated }) {
   // handlePassword
   // setCookie('auth', 'qwewer', 13)
   const [password, setPassword] = useState("");
-  function handlePassword(event){
-    setPassword(event.target.value)
+  function handlePassword(event) {
+    setPassword(event.target.value);
   }
-  const handleSubmit= (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     console.log(password);
     if (password === "bonaire") {
@@ -18,13 +18,18 @@ export function Authenticate({ setIsAuthenticated }) {
   };
   return (
     <div className="formPage">
-      Not logged in
       <form onSubmit={handleSubmit}>
         <label>
-          Password:      <input type="text" name="password" value={password} onChange={handlePassword} />
+          Password:{" "}
+          <input
+            type="text"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          />
         </label>
-        
-        <input type="submit" value="Submit" />
+
+        <input type="submit" value="Submit" className="submit-button"/>
       </form>
     </div>
   );
