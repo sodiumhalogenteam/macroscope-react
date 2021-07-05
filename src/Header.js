@@ -21,7 +21,7 @@ class Header extends Component {
         Bucket: "macroscope-sh",
         Prefix: `${that.props.project}/personas/`
       },
-      function(err, data) {
+      function (err, data) {
         const len = data.Contents.length;
         let tempArr = [];
         for (var i = 1; i < len; i++) {
@@ -63,14 +63,14 @@ class Header extends Component {
           <ul className="personas">
             {personaList.length
               ? personaList.map(persona => (
-                  <li key={persona}>
-                    <img
-                      src={require("./assets/_images/persona-icon.png")}
-                      alt=""
-                    />
-                    <img src={`${persona}`} className="thumb" alt="" />
-                  </li>
-                ))
+                <li key={persona}>
+                  <img
+                    src={require("./assets/_images/persona-icon.png")}
+                    alt=""
+                  />
+                  <img src={`${persona}`} className="thumb" alt="" />
+                </li>
+              ))
               : null}
           </ul>
         </div>
@@ -78,7 +78,7 @@ class Header extends Component {
           <div className="center">
             <ul className="paginate">
               <li className="up">
-                <Link to="../">Up</Link>
+                <Link to="../">BACK</Link>
               </li>
               {fileList.map((file, index) => (
                 <li
